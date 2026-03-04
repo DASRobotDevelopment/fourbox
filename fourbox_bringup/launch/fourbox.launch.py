@@ -8,39 +8,50 @@ from launch.event_handlers import OnProcessStart
 
 def generate_launch_description():
     # Аргументы запуска
-
+    
+    # Параметры робота
+    encoder_ppr = 988
+    baudrate = 11520
+    serial_port_name = "/dev/ttyUSB0"
+    
     # Пути к пакетам
-    pkg_hardware_name = 'fourbox_hardware'
-    pkg_description_name = 'fourbox_description'
+    bringup_pkg_path = FindPackageShare('fourbox_bringup')
+    description_pkg_path = FindPackageShare('fourbox_description')
     
-    
-    
-    pkg_hardware_path = FindPackageShare(pkg_hardware_name).find(pkg_hardware_name)
-    pkg_description_path = PathJoinSubstitution([
-        FindPackageShare(pkg_description_name), 'description', 'fourbox.urdf.xacro'
+    # Пути к функциональным частям
+    description_content_path = PathJoinSubstitution([
+        description_pkg_path, 'description', 'fourbox.urdf.xacro'
     ])
-    robot_controllers_path = PathJoinSubstitution([
-        FindPackageShare(pkg_hardware_name), 'config', 'controllers.yaml'
+    controllers_configuration_path = PathJoinSubstitution([
+        bringup_pkg_path, 'config', 'fourbox_controllers.yaml'
     ])
 
-    hardware_file = PathJoinSubstitution([FindPackageShare(pkg_hardware_name), 'config', 'robot_hardware.yaml'])
-    
-    # ✅ ПРАВИЛЬНО: robot_description без ParameterValue!
+    # Контент
     robot_description_content = Command([
-        FindExecutable(name='xacro'),
+        FindExecutable(name='xacro'), 
         ' ',
-        pkg_description_path
+        description_content_path,
+        ' ',
+        'encoder_ppr_arg:=988',
+        ' ',
+        'baudrate_arg:=115200',
+        ' ',
+        'serial_port_name_arg:=/dev/ttyUSB0'
     ])
-
+    
     robot_description = {'robot_description': robot_description_content}
     
-    # Robot State Publisher
-    robot_state_publisher = Node(
+    # Ноды
+
+
+    robot_state_publisher_node = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
+        name='robot_state_publisher',
         output='screen',
-        parameters=[{'robot_description': robot_description_content}]
+        parameters=[robot_description]
     )
+
     
     # Controller Manager
     # controller_manager = Node(
@@ -54,7 +65,7 @@ def generate_launch_description():
     controller_manager = Node(
         package='controller_manager',
         executable='ros2_control_node',
-        parameters=[robot_description, robot_controllers_path],
+        parameters=[robot_description, controllers_configuration_path],
         output='screen'
     )
     
@@ -66,10 +77,10 @@ def generate_launch_description():
         output='screen',
     )
     
-    mecanum_controller_spawner = Node(
+    fourbox_controller_spawner = Node(
         package='controller_manager',
         executable='spawner', 
-        arguments=['fourbox_mecanum_controller', '--controller-manager', '/controller_manager'],
+        arguments=['fourbox_controller', '--controller-manager', '/controller_manager'],
         output='screen',
     )
     
@@ -84,12 +95,12 @@ def generate_launch_description():
     mecanum_controller_event = RegisterEventHandler(
         OnProcessStart(
             target_action=joint_state_broadcaster_spawner,
-            on_start=[mecanum_controller_spawner]
+            on_start=[fourbox_controller_spawner]
         )
     )
     
     return LaunchDescription([
-        robot_state_publisher,
+        robot_state_publisher_node,
         controller_manager,
         joint_state_broadcaster_event,
         mecanum_controller_event,

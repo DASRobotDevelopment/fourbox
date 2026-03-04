@@ -1,0 +1,5 @@
+fourbox:
+  serial_port: "/dev/ttyUSB0"
+  baudrate: 115200
+  joints_count: 4
+  wheel_radius: 0.097

@@ -143,17 +143,17 @@ ros2 launch fourbox_* *.launch.py rviz:=false world:=empty
 - Jazzy ✅
 - Rolling ✅
 
-## 👥 Контакты
+## Контакты
 
-- GitHub: [Issues](https://github.com/DasbotDev/fourbox/issues)
-- Telegram: [@dasbot_support](https://t.me/dasbot_support)
+- GitHub: [Issues](https://github.com/DASRobotDevelopment/fourbox/issues)
+- Telegram: [@dasbot_support](https://t.me/dasrobot_support)
 
-## 📄 Лицензия
+## Лицензия
 
 **Apache License 2.0**
 
 ```
-Copyright 2026 Fourbox Robot Project
+Copyright 2026 DASRobot
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

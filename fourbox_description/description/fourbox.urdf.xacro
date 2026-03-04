@@ -3,7 +3,11 @@
 
     <!-- Параметры -->
     <!-- <xacro:arg name="use_simulation" default="false" /> -->
-    
+    <xacro:arg name="encoder_ppr_arg" default="988"/>
+    <xacro:arg name="baudrate_arg" default="115200"/>
+    <xacro:arg name="serial_port_name_arg" default="/dev/ttyUSB0"/>
+
+ 
     <!-- Вспомогательные модули -->
     <xacro:include filename="materials.xacro" />
     <xacro:include filename="properties.xacro" />

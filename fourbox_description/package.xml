@@ -4,7 +4,7 @@
   <name>fourbox_description</name>
   <version>0.0.0</version>
   <description>URDF description package for fourbox robot</description>
-  <maintainer email="das.developer@mail.ru">DasbotDev</maintainer>
+  <maintainer email="das.developer@mail.ru">DASRobot</maintainer>
   <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
