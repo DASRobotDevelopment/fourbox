@@ -8,12 +8,10 @@
 
     <xacro:property name="wheel_mass" value="0.1" />
     <xacro:property name="wheel_count" value="4" />
-    <xacro:property name="wheel_radius" value="0.0325" />
+    <xacro:property name="wheel_radius" value="0.033" />
     <xacro:property name="wheel_length" value="0.025" />
-    <xacro:property name="wheel_separation_x" value="0.21" />
-    <xacro:property name="wheel_separation_y" value="0.166" />
-    
-    <!-- <xacro:property name="correction_coefficient_with_wheel" value="0.01" /> -->
+    <xacro:property name="wheel_separation_x" value="0.210" />
+    <xacro:property name="wheel_separation_y" value="0.165" />
 
     <xacro:property name="lidar_mass" value="0.1" />
     <xacro:property name="lidar_length" value="0.025" />

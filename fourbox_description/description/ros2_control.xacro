@@ -9,10 +9,10 @@
         <param name="baudrate">$(arg baudrate_arg)</param>
         <param name="serial_port_name">$(arg serial_port_name_arg)</param>
 
-        <param name="wheel_count">"${wheel_count}"</param>
-        <param name="wheel_radius">"${wheel_radius}"</param>
-        <param name="wheel_separation_x">"${wheel_separation_x}"</param>
-        <param name="wheel_separation_y">"${wheel_separation_y}"</param>
+        <param name="wheel_count">${wheel_count}</param>
+        <param name="wheel_radius">${wheel_radius}</param>
+        <param name="wheel_separation_x">${wheel_separation_x}</param>
+        <param name="wheel_separation_y">${wheel_separation_y}</param>
         </hardware>
         
         <joint name="base_front_left_wheel_joint">

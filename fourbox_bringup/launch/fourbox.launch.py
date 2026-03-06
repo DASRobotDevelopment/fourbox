@@ -10,8 +10,8 @@ def generate_launch_description():
     # Аргументы запуска
     
     # Параметры робота
-    encoder_ppr = 988
-    baudrate = 11520
+    encoder_ppr = "990"
+    baudrate = "115200"
     serial_port_name = "/dev/ttyUSB0"
     
     # Пути к пакетам
@@ -32,11 +32,11 @@ def generate_launch_description():
         ' ',
         description_content_path,
         ' ',
-        'encoder_ppr_arg:=988',
+        'encoder_ppr_arg:=', encoder_ppr,
         ' ',
-        'baudrate_arg:=115200',
+        'baudrate_arg:=', baudrate,
         ' ',
-        'serial_port_name_arg:=/dev/ttyUSB0'
+        'serial_port_name_arg:=', serial_port_name
     ])
     
     robot_description = {'robot_description': robot_description_content}
@@ -77,12 +77,28 @@ def generate_launch_description():
         output='screen',
     )
     
+    # fourbox_controller_spawner = Node(
+    #     package='controller_manager',
+    #     executable='spawner', 
+    #     arguments=['fourbox_controller', '--controller-manager', '/controller_manager'],
+    #     output='screen',
+    # )
+
     fourbox_controller_spawner = Node(
         package='controller_manager',
         executable='spawner', 
-        arguments=['fourbox_controller', '--controller-manager', '/controller_manager'],
+        arguments=[
+            'fourbox_controller', 
+            '--controller-manager', 
+            '/controller_manager',
+            #'--controller-ros-args','-r /fourbox_controller/odometry:=/odometry',
+            '--controller-ros-args','-r /fourbox_controller/tf_odometry:=/tf',
+            '--controller-ros-args','-r /fourbox_controller/reference:=/cmd_vel',
+
+            ],
         output='screen',
     )
+    
     
     # Последовательный запуск
     joint_state_broadcaster_event = RegisterEventHandler(
