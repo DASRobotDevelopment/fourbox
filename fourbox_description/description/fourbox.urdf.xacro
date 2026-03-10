@@ -19,7 +19,7 @@
     <xacro:include filename="lidar.xacro" />
 
     <!-- Подключаемые модули -->
-    <xacro:include filename="ros2_control.xacro" />
+    <!-- <xacro:include filename="ros2_control.xacro" /> -->
 
     <!-- <xacro:if value="$(arg use_simulation)">
         <xacro:include filename="gazebo_plugins.xacro" />
