@@ -1,8 +1,13 @@
 twist_mux:
-  topics:
-    navigation:          
-      topic: cmd_vel_nav 
-      priority: 100      
-    teleop:             
-      topic: cmd_vel_teleop
-      priority: 50
+  ros__parameters:
+    cmd_vel_out: /cmd_vel           # ← Выход для dasrobot!
+    
+    topics:
+      cmd_vel_nav:                  # ← Nav2 input (приоритет 10)
+        topic: /cmd_vel_nav
+        priority: 10
+        timeout: 0.0
+      cmd_vel_joy:                  # ← Джойстик (приоритет 5)  
+        topic: /cmd_vel_joy
+        priority: 5
+        timeout: 0.0

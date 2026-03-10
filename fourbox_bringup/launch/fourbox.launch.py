@@ -14,7 +14,7 @@ def generate_launch_description():
     # Параметры робота
     serial_command_topic = '/serial_command'
     serial_response_topic = '/serial_response'
-    serial_port_id = '/dev/ttyUSB0'
+    serial_port_id = '/dev/serial/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.2:1.0-port0'
     serial_port_baudrate = '115200'
     serial_port_polling_hz = '50'
 
@@ -28,9 +28,9 @@ def generate_launch_description():
     odom_topic_id = '/odom'
     odom_frame_name = 'odom'
     base_frame_name = 'base_footprint'
-    rotation_scale = '0.45'
+    rotation_scale = '0.7'
 
-    lidar_port = '/dev/ttyUSB1'
+    lidar_port = '/dev/serial/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.1:1.0-port0'
     
     # Пути к пакетам
     bringup_pkg_path = FindPackageShare('fourbox_bringup')
