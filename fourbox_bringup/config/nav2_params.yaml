@@ -74,7 +74,7 @@ controller_server:
     min_y_velocity_threshold: 0.001        # default: 0.001 — Мин скорость Y
     min_theta_velocity_threshold: 0.001    # default: 0.001 — Мин угловая скорость
     failure_tolerance: 0.3                 # default: 0.3 — Допуск неудач (сек)
-    
+    robot_radius: 0.15
     progress_checker_plugins: ["progress_checker"]  # Плагины проверки прогресса
     goal_checker_plugins: ["general_goal_checker"]  # Плагины проверки цели
     controller_plugins: ["FollowPath"]     # Контроллеры траектории
@@ -113,7 +113,7 @@ local_costmap:
     width: 3.0                             # default: 3.0 — Ширина (м)
     height: 3.0                            # default: 3.0 — Высота (м)
     resolution: 0.05                       # default: 0.05 — Разрешение (м/ячейка)
-    robot_radius: 0.3                     # default: 0.22 — Радиус робота (м)
+    robot_radius: 0.15                     # default: 0.22 — Радиус робота (м)
     plugins: ["static_layer", "obstacle_layer", "inflation_layer"]  # Слои карты
     
     static_layer:
