@@ -122,7 +122,8 @@ def generate_launch_description():
         executable='twist_mux',
         name='twist_mux',
         output='screen',
-        parameters=[twist_mux_params_path],
+        parameters=[twist_mux_params_path,
+                    {'use_stamped': use_sim_time}],
         remappings=[('/cmd_vel_out', cmd_topic)]
     )
     
@@ -137,12 +138,12 @@ def generate_launch_description():
     # ✅ ПОЛНАЯ последовательность запуска
     ld.add_action(TimerAction(period=2.0, actions=[slam_launch]))           # 1. SLAM
     ld.add_action(TimerAction(period=5.0, actions=[twist_mux_node]))        # 2. TwistMux
-    ld.add_action(TimerAction(period=6.0, actions=[map_server]))            # 3. Map Server ✅
-    ld.add_action(TimerAction(period=7.0, actions=[controller_server]))     # 4. Controller
-    ld.add_action(TimerAction(period=8.0, actions=[planner_server]))        # 5. Planner
-    ld.add_action(TimerAction(period=9.5, actions=[behavior_server]))  # Behavior 
-    ld.add_action(TimerAction(period=9.0, actions=[bt_navigator]))          # 6. BT Navigator
-    ld.add_action(TimerAction(period=10.0, actions=[lifecycle_manager]))    # 7. Lifecycle Manager
+    ld.add_action(TimerAction(period=7.0, actions=[map_server]))            # 3. Map Server ✅
+    ld.add_action(TimerAction(period=8.0, actions=[controller_server]))     # 4. Controller
+    ld.add_action(TimerAction(period=9.0, actions=[planner_server]))        # 5. Planner
+    ld.add_action(TimerAction(period=11.0, actions=[behavior_server]))  # Behavior 
+    ld.add_action(TimerAction(period=12.0, actions=[bt_navigator]))          # 6. BT Navigator
+    ld.add_action(TimerAction(period=13.0, actions=[lifecycle_manager]))    # 7. Lifecycle Manager
 
     
     return ld

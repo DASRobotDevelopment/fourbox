@@ -1,5 +1,3 @@
-# config/nav2_params.yaml — ✅ ПОЛНЫЙ файл для Iron + DiffDrive + Pure Pursuit + FIXED queue full
-
 amcl:
   ros__parameters:
     use_sim_time: false
@@ -44,7 +42,7 @@ amcl:
 
 map_server:
   ros__parameters:
-    yaml_filename: ""           # ✅ Пустая карта для SLAM
+    yaml_filename: ""          
     topic_name: "map"
     introspection_mode: "disabled"
 
@@ -58,9 +56,11 @@ bt_navigator:
     default_cancel_timeout: 50
     enable_groot_monitoring: false
     introspection_mode: "disabled"
+    follow_path_error_code: "FollowPath"
+    compute_path_error_code: "ComputePathToPose"
     navigators: ["navigate_to_pose"]
     navigate_to_pose:
-      plugin: "nav2_bt_navigator/NavigateToPoseNavigator"  # ✅ СЛЕШ!
+      plugin: "nav2_bt_navigator::NavigateToPoseNavigator"  
     bt_search_directories:
       - "$env{HOME}/ros2_ws/install/nav2_bt_navigator/share/nav2_bt_navigator/behavior_trees"
 
@@ -89,14 +89,14 @@ controller_server:
     FollowPath:
       plugin: "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController"
       desired_linear_vel: 0.4
-      max_linear_accel: 2.0
-      max_angular_accel: 3.2
+      max_linear_accel: 0.8 # Максимальное линейное ускорение
+      max_angular_accel: 1.5 # Максимальное угловое ускорение
       min_angular_speed: 0.1
       max_angular_speed: 1.2
       rotational_lookahead_distance: 0.4
       lookahead_distance: 0.6
       use_interpolation: true
-      transform_tolerance: 1.0        # ✅ ИСПРАВЛЕНО 0.2→1.0
+      transform_tolerance: 1.0
 
 local_costmap:
   ros__parameters:
@@ -130,7 +130,7 @@ local_costmap:
       cost_scaling_factor: 3.0
       inflation_radius: 0.7
     always_send_full_costmap: true
-    transform_tolerance: 1.0          # ✅ Есть!
+    transform_tolerance: 1.0
 
 global_costmap:
   ros__parameters:
@@ -162,35 +162,32 @@ global_costmap:
       cost_scaling_factor: 3.0
       inflation_radius: 0.7
     always_send_full_costmap: true
-    transform_tolerance: 1.0          # ✅ Есть!
+    transform_tolerance: 1.0
 
 planner_server:
   ros__parameters:
     expected_planner_frequency: 20.0
     planner_plugins: ["GridBased"]
     GridBased:
-      plugin: "nav2_navfn_planner/NavfnPlanner"     # ✅ СЛЕШ!
+      plugin: "nav2_navfn_planner::NavfnPlanner"     
       tolerance: 0.5
       use_astar: false
       allow_unknown: true
+    open_container: true  
 
 behavior_server:
   ros__parameters:
     cycle_frequency: 10.0
     behavior_plugins: ["spin", "backup", "drive_on_heading", "wait"]
     spin:
-      plugin: "nav2_behaviors/Spin"              # ✅ СЛЕШ "/"!
+      plugin: "nav2_behaviors::Spin"                
     backup:
-      plugin: "nav2_behaviors/BackUp"            # ✅ СЛЕШ "/"!
+      plugin: "nav2_behaviors::BackUp"             
     drive_on_heading:
-      plugin: "nav2_behaviors/DriveOnHeading"    # ✅ СЛЕШ "/"!
+      plugin: "nav2_behaviors::DriveOnHeading"     
     wait:
-      plugin: "nav2_behaviors/Wait"              # ✅ СЛЕШ "/"!
+      plugin: "nav2_behaviors::Wait"                
     local_frame: "odom"
     global_frame: "map"
     robot_base_frame: "base_link"
     transform_tolerance: 1.0
-
-
-# ✅ ВСЕ transform_tolerance = 1.0 → NO MORE "queue full"!
-# Сохрани → colcon build → ros2 launch fourbox_bringup navigation.launch.py
