@@ -18,8 +18,8 @@ def generate_launch_description():
     serial_port_baudrate = '115200'
     serial_port_polling_hz = '50'
 
-    wheel_base_x = '0.3'
-    wheel_base_y = '0.2'
+    wheel_base_x = '0.21'
+    wheel_base_y = '0.165'
     max_wheel_rpm = '200'
     ticks_per_rev = '988'
     wheel_radius = '0.0325'
@@ -28,7 +28,7 @@ def generate_launch_description():
     odom_topic_id = '/odom'
     odom_frame_name = 'odom'
     base_frame_name = 'base_footprint'
-    rotation_scale = '0.7'
+    rotation_scale = '0.45'
 
     lidar_port = '/dev/serial/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.1:1.0-port0'
     
